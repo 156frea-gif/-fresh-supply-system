@@ -1,17 +1,18 @@
-from pydantic import BaseModel, Field
-from datetime import datetime
+from pydantic import BaseModel
 
-class ProductCreate(BaseModel):
-    sku: str
-    name: str
-    category: str
-    quantity: int = Field(..., ge=0, description="الكمية يجب أن تكون 0 أو أكثر")
-    max_temperature: float
-    expiry_date: datetime
+class UserCreate(BaseModel):
+    username: str
+    password: str
+    role: str = "worker"
 
-class ProductResponse(ProductCreate):
+class UserLogin(BaseModel):
+    username: str
+    password: str
+
+class UserResponse(BaseModel):
     id: int
-    created_at: datetime
+    username: str
+    role: str
 
     class Config:
         from_attributes = True
